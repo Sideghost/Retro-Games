@@ -6,10 +6,9 @@ package arkanoid
  * @property y Y component of the velocity
  */
 data class Velocity(
-    val x: Int,
-    val y: Int
+	val x: Int,
+	val y: Int
 )
-
 
 /**
  * Operator for mul a velocity to the position
@@ -18,6 +17,6 @@ data class Velocity(
  * @return new Position updated based on the given velocity
  */
 operator fun Velocity.times(vel: Velocity): Velocity {
-    return Velocity(x * vel.x, y * vel.y)
+	return Velocity(x * vel.x, y * vel.y)
 }
 

@@ -7,10 +7,9 @@ package arkanoid
  * @property y Y Component of the position
  */
 data class Position(
-    val x: Int,
-    val y: Int
+	val x: Int,
+	val y: Int
 )
-
 
 /**
  * Operator for adding a velocity to the position
@@ -19,9 +18,8 @@ data class Position(
  * @return new Position updated based on the given velocity
  */
 operator fun Position.plus(vel: Velocity): Position {
-    return Position(x + vel.x, y + vel.y)
+	return Position(x + vel.x, y + vel.y)
 }
-
 
 /** Limits an integer to a certain range
  * @param range valid range
@@ -29,8 +27,7 @@ operator fun Position.plus(vel: Velocity): Position {
  * @return limited integer
  */
 fun Int.constrain(range: IntRange) = when {
-    this < range.first -> range.first
-    this > range.last -> range.last
-    else -> this
-
+	this < range.first -> range.first
+	this > range.last -> range.last
+	else -> this
 }

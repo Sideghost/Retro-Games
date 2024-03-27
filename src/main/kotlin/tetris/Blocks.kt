@@ -1,63 +1,69 @@
 package tetris
 
-import pt.isel.canvas.*
+import pt.isel.canvas.BLUE
+import pt.isel.canvas.CYAN
+import pt.isel.canvas.Canvas
+import pt.isel.canvas.GREEN
+import pt.isel.canvas.MAGENTA
+import pt.isel.canvas.RED
+import pt.isel.canvas.YELLOW
 
 /**
- * Block information.
+ * Block information
  *
- * Position ([x],[y]) and [color].
+ * Position ([x],[y]) and [color]
  * @property x Horizontal block position
  * @property y Vertical block position
  * @property color Background color of block
  */
-data class Block(val x:Int, val y:Int, val color:Int)
+data class Block(val x: Int, val y: Int, val color: Int)
 
 /**
- * Side of each block in pixels.
+ * Side of each block in pixels
  */
 const val BLOCK_SIDE = 28
 
 /**
- * Edge thickness of each block.
- * It must be an odd value.
+ * Edge thickness of each block
+ * It must be an odd value
  */
 const val BORDER = 3
 
 /**
- * Draws a bordered block.
+ * Draws a bordered block
  *
  * @receiver where to draw
  * @param b block to draw
  */
-fun Canvas.drawBlock(b:Block) {
-    val x = b.x*BLOCK_SIDE  // in pixels
-    val y = b.y*BLOCK_SIDE  // in pixels
-    drawRect(x, y, BLOCK_SIDE, BLOCK_SIDE, b.color)
-    drawRect(x+BORDER/2, y+BORDER/2, BLOCK_SIDE-BORDER, BLOCK_SIDE-BORDER, 0xAAAAAA, BORDER)
+fun Canvas.drawBlock(b: Block) {
+	val x = b.x * BLOCK_SIDE  // in pixels
+	val y = b.y * BLOCK_SIDE  // in pixels
+	drawRect(x, y, BLOCK_SIDE, BLOCK_SIDE, b.color)
+	drawRect(x + BORDER / 2, y + BORDER / 2, BLOCK_SIDE - BORDER, BLOCK_SIDE - BORDER, 0xAAAAAA, BORDER)
 }
 
 /**
- * Moves the block by horizontal and vertical displacement.
+ * Moves the block by horizontal and vertical displacement
  * @param dx Horizontal offset
  * @param dy Vertical offset
  * @return Moved block or null
  * @receiver Original block
  */
-fun Block.move(dx:Int, dy:Int, f:List<Block>) :Block? {
-    val b= Block(x + dx, y + dy, color)
-    return if (b.valid(f)) b else null
+fun Block.move(dx: Int, dy: Int, f: List<Block>): Block? {
+	val b = Block(x + dx, y + dy, color)
+	return if (b.valid(f)) b else null
 }
 
-fun Block.valid(f:List<Block>) = x in GRID_X && y in GRID_Y && f.all { it.x!=x || it.y!=y }
+fun Block.valid(f: List<Block>) = x in GRID_X && y in GRID_Y && f.all { it.x != x || it.y != y }
 
 /**
- * Checks whether the block should be fixed.
- * Hit the bottom or hit another piece already fixed.
+ * Checks whether the block should be fixed
+ * Hit the bottom or hit another piece already fixed
  * @receiver Block to check
  * @param f Blocks already fixed
- * @return true if should be fixed
+ * @return true if it should be fixed
  */
-fun Block.toFix(f :List<Block>) = (y == GRID_Y.last || f.any { it.y == y+1 && it.x == x })
+fun Block.toFix(f: List<Block>) = (y == GRID_Y.last || f.any { it.y == y + 1 && it.x == x })
 
 /**
  * Possible block colors.
@@ -65,7 +71,7 @@ fun Block.toFix(f :List<Block>) = (y == GRID_Y.last || f.any { it.y == y+1 && it
 val COLORS = listOf(BLUE, RED, YELLOW, CYAN, MAGENTA, GREEN, 0xFF8000)
 
 /**
- * Creates a new block centered at the top with a random color.
+ * Creates a new block centered at the top with a random color
  * @return the new block
  */
-fun newBlock() = Block(GRID_WIDTH/2, 0, COLORS.random())
+fun newBlock() = Block(GRID_WIDTH / 2, 0, COLORS.random())

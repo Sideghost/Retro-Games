@@ -5,7 +5,7 @@ const val MAP_HEIGHT = 13
 
 val levels = listOf(
 
-    """xxxxxxxxxxxxx
+	"""xxxxxxxxxxxxx
        xxxxxxxxxxxxx
        xxxxxxxxxxxxx
        x777x090x777x
@@ -19,7 +19,7 @@ val levels = listOf(
        xxxxxxxxxxxxx
        xxxxxxxxxxxxx
     """,
-    """xxxxxxxxxxxxx
+	"""xxxxxxxxxxxxx
        xxxxxxxxxxxxx
        xxxxxxxxxxxxx
        x777x090x777x
@@ -33,7 +33,7 @@ val levels = listOf(
        xxxxxxxxxxxxx
        xxxxxxxxxxxxx
     """,
-    """xxxxxxxxxxxxx
+	"""xxxxxxxxxxxxx
        xxxxxxxxxxxxx
        xxxxxxxxxxxxx
        x777x090x777x
@@ -49,16 +49,15 @@ val levels = listOf(
     """,
 )
 
-
 fun getLevel(level: Int): List<Brick> {
-    return levels[level]
-        .filter { char -> char != ' ' && char != '\n' }
-        .mapIndexed { index, c ->
-            val x = index % MAP_WIDTH
-            val y = index / MAP_HEIGHT
-            if (c != 'x') {
-                Brick(Position(x, y), 0, BrickType.values()[c.code - '0'.code], EffectType.values().random())
-            } else
-                Brick(Position(-1, -1), 0, BrickType.GOLD, EffectType.values().random())
-        }.filter { it.pos.x != -1 }
+	return levels[level]
+		.filter { char -> char != ' ' && char != '\n' }
+		.mapIndexed { index, c ->
+			val x = index % MAP_WIDTH
+			val y = index / MAP_HEIGHT
+			if (c != 'x') {
+				Brick(Position(x, y), 0, BrickType.values()[c.code - '0'.code], EffectType.values().random())
+			} else
+				Brick(Position(-1, -1), 0, BrickType.GOLD, EffectType.values().random())
+		}.filter { it.pos.x != -1 }
 }
